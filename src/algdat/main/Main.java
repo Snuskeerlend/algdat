@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package algdat.main;
+import algdat.hjelpelasser.Tabell;
 
 /**
  *
@@ -10,12 +11,8 @@ package algdat.main;
  */
 public class Main
 {
-
-  /**
-   * @param args the command line arguments
-   */
   public static void main(String[] args)
   {
-    // TODO code application logic here
+    char[] a = {'a','g','e','r','t','h','k'};
   }
 }
