@@ -19,6 +19,8 @@ public class Main
     int m = Tabell.maks(a);   // finner posisjonen til største verdi
 
     System.out.println("\nStørste verdi ligger på plass " + m);
+    
+    Tabell.skrivln(a);
 
   } // main
 
