@@ -92,5 +92,31 @@ public class Tabell
     char temp = c[i]; c[i] = c[j]; c[j] = temp;
   }
   
+   public static void fratilKontroll(int tablengde, int fra, int til)
+  {
+    if (fra < 0)                                  // fra er negativ
+      throw new ArrayIndexOutOfBoundsException
+        ("fra(" + fra + ") er negativ!");
+
+    if (til > tablengde)                          // til er utenfor tabellen
+      throw new ArrayIndexOutOfBoundsException
+        ("til(" + til + ") > tablengde(" + tablengde + ")");
+
+    if (fra > til)                                // fra er større enn til
+      throw new IllegalArgumentException
+        ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+  }
+  
+  public static void skriv(int[] a, int fra, int til)
+  {
+    fratilKontroll(a.length,fra,til);
+    for(int i = fra; i < til; i++)
+    {
+      System.out.println(a[i] + " ");
+    }
+  }
+  
+  
+  
   
 }
