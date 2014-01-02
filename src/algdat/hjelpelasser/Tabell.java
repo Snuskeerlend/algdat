@@ -133,7 +133,49 @@ public class Tabell
     System.out.println();
   }
   
+  public static void skriv(char[] c, int fra, int til)
+  {
+    fratilKontroll(c.length, fra, til);
+    for (int i = fra; i < til; i++) System.out.print(c[i] + " ");
+  }
+
+  public static void skriv(char... c)
+  {
+    for (char d : c) System.out.print(d + " ");
+  }
+
+  public static void skrivln(char[] c, int fra, int til)
+  {
+    fratilKontroll(c.length, fra, til);
+    for (int i = fra; i < til; i++) System.out.print(c[i] + " ");
+    System.out.println();
+  }
+
+  public static void skrivln(char... c)
+  {
+    skriv(c);
+    System.out.println();
+  }
   
+  public static int[] naturligeTall(int n)
+  {
+    if (n < 1) throw new
+      IllegalArgumentException("n(" + n + ") er mindre enn 1!");
+
+    int[] a = new int[n];
+    for (int i = 0; i < n; i++) a[i] = i + 1;
+    return a;
+  }
+
+  public static int[] heleTall(int fra, int til)
+  {
+    if (fra > til) throw new
+      IllegalArgumentException("fra(" + fra + ") > til(" + til + ")");
+
+    int[] a = new int[til - fra];
+    for (int i = fra; i < til; i++) a[i-fra] = i;
+    return a;
+  }
   
   
 }
