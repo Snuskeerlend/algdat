@@ -116,6 +116,23 @@ public class Tabell
     }
   }
   
+  public static void skriv(int... a)
+  {
+    for(int k : a) System.out.println(k + " ");
+  }
+  
+  public static void skrivln(int[] a, int fra, int til)
+  {
+    skriv(a,fra,til);
+    System.out.println();
+  }
+
+  public static void skrivln(int... a)
+  {
+    skriv(a);
+    System.out.println();
+  }
+  
   
   
   
