@@ -4,6 +4,7 @@
  */
 package algdat.main;
 import algdat.hjelpelasser.Tabell;
+import java.io.IOException;
 
 /**
  *
@@ -11,17 +12,15 @@ import algdat.hjelpelasser.Tabell;
  */
 public class Main
 {
-  public static void main(String[] args)        // hovedprogram
+  public static void main(String[] args) throws IOException
   {
-    int[] a = Tabell.randPerm(20);              // en tilfeldig tabell
-    for (int k : a) System.out.print(k + " ");  // skriver ut a
+    int[] a = Tabell.randPerm(10);
+    int[] c = null;
 
-    int m = Tabell.maks(a);   // finner posisjonen til største verdi
-
-    System.out.println("\nStørste verdi ligger på plass " + m);
-    
-    Tabell.skrivln(a);
-
-  } // main
-
+//    Tabell.maks(a,-1,10);
+//    Tabell.maks(a,0,11);
+//    Tabell.maks(a,10,0);
+//    Tabell.maks(a,0,0);
+//    Tabell.maks(c,0,0);
+  }
 } // class Program
