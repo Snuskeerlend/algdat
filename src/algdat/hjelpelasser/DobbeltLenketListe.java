@@ -35,7 +35,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
   
   private static <T> void nullSjekk(T verdi)
   {
-    // foreløpig kode
+    if(verdi == null) throw new NullPointerException("Verdi er lik NULL");
   }
   
   private Node<T> finnNode(int indeks)
@@ -52,12 +52,13 @@ public class DobbeltLenketListe<T> implements Liste<T>
   
   public boolean tom()
   {
-    return false;  // foreløpig kode
+    if(antall == 0) return true;
+    return false;
   }
   
   public int antall()
   {
-    return 0;  // foreløpig kode 
+    return antall;
   }
   
   public void nullstill()
@@ -77,7 +78,19 @@ public class DobbeltLenketListe<T> implements Liste<T>
   
   public boolean leggInn(T verdi)
   {
-    return false;  // foreløpig kode
+    nullSjekk(verdi);
+    if(antall == 0)
+    {
+      hode = hale = new Node<>(verdi, null, null);
+    }
+    else
+    {
+      hale = hale.neste = new Node<>(verdi,null,hale);
+    }
+    antall++;
+    antallEndringer++;
+    
+    return true;
   }
   
   public T hent(int indeks)
@@ -147,7 +160,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
   
   public String toString()
   {
-    return null;  // foreløpig kode
+    return null;
   }
   
   public String omvendtString()
