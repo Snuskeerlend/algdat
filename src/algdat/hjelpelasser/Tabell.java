@@ -3,6 +3,7 @@ package algdat.hjelpelasser;
 import static algdat.hjelpelasser.Tabell.bytt;
 import static algdat.hjelpelasser.Tabell.maks;
 import static algdat.hjelpelasser.Tabell.min;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class Tabell
@@ -191,7 +192,79 @@ public class Tabell
         ("v = " + v + ", h = " + h);
   }
   
+  public static void snu(int[] a, int v, int h)
+  {
+    vhKontroll(a.length, v, h);
+    while(v < h)
+    {
+      bytt(a, v++, h--);
+    }
+  }
   
+  public static void snu(int[]a)
+  {
+    int v = 0, h = a.length-1;
+    while(v < h)
+      bytt(a,v++,h--);
+  }
+  
+  public static int[] nestMaks(int[] a)  // legges i class Tabell
+  {
+    int n = a.length;   // tabellens lengde
+
+    if (n < 2) throw   // må ha minst to verdier!
+      new java.util.NoSuchElementException("a.length(" + n + ") < 2!");
+
+    int m = maks(a);  // m er posisjonen til tabellens største verdi
+
+    int nm;     // nm skal inneholde posisjonen til nest største verdi
+
+    if (m == 0)                            // den største ligger først
+    {
+      nm = maks(a,1,n);                    // leter i a[1:n>
+    }
+    else if (m == n-1)                     // den største ligger bakerst
+    {
+      nm = maks(a,0,n-1);                  // leter i a[0:n-1>
+    }
+    else
+    {
+      int mv = maks(a,0,m);                // leter i a[0:m>
+      int mh = maks(a,m+1,n);              // leter i a[m+1:n>
+      nm = a[mh] > a[mv] ? mh : mv;        // hvem er størst?
+    }
+
+    return new int[] {m,nm};      // m i posisjon 0 , nm i posisjon 1
+
+  } // nestMaks
+  
+  public static void sortering(int[]a)
+  {
+    for(int i = a.length; i < 1; i++)
+    {
+      int m = Tabell.maks(a, 0, i);
+      Tabell.bytt(a, i-1, m); 
+    }
+  }
+  
+//  public static int[] nestMaks(int[] a)
+//  {
+//    if (a.length < 2) // må ha minst to verdier!
+//    throw new IllegalArgumentException("a.length(" + a.length + ") < 2!");
+//
+//    int m = Tabell.maks(a);  // m er posisjonen til tabellens største verdi
+//
+//    Tabell.bytt(a,a.length-1,m);  // bytter om slik at den største kommer bakerst
+//
+//    int k = Tabell.maks(a,0,a.length-1);
+//
+//    if (k == m) k = a.length - 1; // den nest største lå opprinnelig bakerst
+//
+//    Tabell.bytt(a,a.length-1,m); // bytter tilbake
+//
+//    return new int[] {m,k};
+//
+//  } // nestMaks
   
   
 }
