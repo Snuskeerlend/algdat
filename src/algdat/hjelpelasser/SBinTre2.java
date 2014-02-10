@@ -103,24 +103,61 @@ public class SBinTre2<T> implements Beholder<T>
       new NullPointerException("Ulovlig nullverdi!");
 
     Node<T> p = rot, q = null;               // p starter i roten
-    int cmp = 0;                             // hjelpevariabel
+    int cmp = 0; 
+    int h = 0;  // hjelpevariabel
 
     while (p != null)       // fortsetter til p er ute av treet
     {
-      q = p;                                 // q forelder til p
+      q = p; // q forelder til p
       cmp = comp.compare(verdi,p.verdi);      // bruker komparatoren
       p = cmp < 0 ? p.venstre : p.høyre;     // flytter p
+      h++;
     }
 
     p = new Node<>(verdi);                   // oppretter en ny node
 
-    if (q == null) rot = p;                  // rotnoden
-    else if (cmp < 0) q.venstre = p;         // til venstre for q
-    else q.høyre = p;                        // til høyre for q
-
-    endringer++;                             // en endring
-    antall++;                                // en ny verdi i treet
-
+    if (q == null) 
+    {
+      rot = p;
+      antallIngenBarn++;
+      høyde++;
+    }                  // rotnoden
+    else if (cmp < 0) 
+    {
+      q.venstre = p;
+      if(q.høyre == null)
+      {
+        antallEttBarn++;
+      }
+      else
+      {
+        antallEttBarn--;
+        antallToBarn++;
+        antallIngenBarn++;
+      }
+    }         // til venstre for q
+    else 
+    {
+      q.høyre = p; 
+      if(q.venstre == null)
+        
+      {
+        antallEttBarn++;
+      }
+      else
+      {
+        antallToBarn++;
+        antallEttBarn--;
+        antallIngenBarn++;
+      }
+    }
+    if(h > høyde)
+    {
+      høyde++;
+      endringer++;                             // en endring
+      antall++;                                // en ny verdi i treet
+    }
+    
     return true;
   }
 
@@ -266,21 +303,63 @@ public class SBinTre2<T> implements Beholder<T>
 
   public int antall(T verdi)
   {
-    return 0;  // foreløpig kode
+    int vAntall = 0; 
+    Node<T> p = rot;
+    
+    while( p != null)
+    {
+      int cmp = comp.compare(verdi, p.verdi);
+      if(cmp < 0) 
+        p = p.venstre;
+      else
+      {
+        if(cmp == 0) 
+          vAntall++;
+          p = p.høyre;
+      }
+    }
+    return vAntall;
   }
 
   public T min()
   {
-    if (tom()) throw new NoSuchElementException("Treet er tomt!");
-
+    if(tom()) 
+      throw new NoSuchElementException("Treet har ingen noder");
+    
     Node<T> p = rot;
-    while (p.venstre != null) p = p.venstre;
+    
+    while(p.venstre != null)
+      p = p.venstre; 
     return p.verdi;
   }
 
   public T nestMin()
   {
-    return null;  // foreløpig kode
+    
+    
+    Node<T> p = rot, q = null;
+    
+    if(tom()) throw new NoSuchElementException("Helt tomt");
+    
+    
+    while(p.venstre != null)
+    {
+      q = p;
+      p = p.venstre;
+    }
+    
+    if(p.høyre == null)
+      return q.verdi;
+    else
+    {
+      p = p.høyre;
+      while(p.venstre != null)
+      {
+        p = p.venstre;
+      }
+    }
+     return p.verdi;
+    
   }
 
   public T minFjern()
@@ -290,12 +369,41 @@ public class SBinTre2<T> implements Beholder<T>
 
   public T maks()
   {
-    return null;
+    if(tom()) throw new NoSuchElementException("Treet er tom");
+    
+    Node<T> p = rot;
+    
+    while(p.høyre != null)
+      p = p.høyre;
+    return p.verdi;
   }
 
   public T nestMaks()
   {
-    return null;
+    if(antall < 2)
+      throw new NoSuchElementException(" ");
+    
+    Node<T> p = rot, q = null;
+    
+    while(p.høyre != null)
+    {
+      q = p;
+      p = p.høyre;
+    }
+    
+    if(p.venstre == null)
+      return q.verdi;
+    else
+    {
+      p = p.venstre;
+      while(p.høyre != null)
+      {
+        p = p.høyre;
+      }
+    }
+    return p.verdi;
+      
+      
   }
 
   public int maksFjernAlle()
