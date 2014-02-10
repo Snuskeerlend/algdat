@@ -40,7 +40,25 @@ public class DobbeltLenketListe<T> implements Liste<T>
   
   private Node<T> finnNode(int indeks)
   {
-    return null;  // foreløpig kode 
+    Node <T> p;
+    
+    if(indeks <= antall/2)
+    {
+      p = hode; 
+      for(int i = 0; i < indeks; i++)
+      {
+        p = p.neste;
+      }
+    }
+    else
+    {
+      p = hale; 
+      for(int i = antall - 1; i > indeks; i--)
+      {
+        p = p.forrige;
+      }
+    }
+    return p; 
   }
 
   public DobbeltLenketListe()  // konstruktør
@@ -95,17 +113,37 @@ public class DobbeltLenketListe<T> implements Liste<T>
   
   public T hent(int indeks)
   {
-    return null;  // foreløpig kode
+    indeksKontroll(indeks);
+    return finnNode(indeks).verdi;
   }
   
   public int indeksTil(T verdi)
   {
-    return -1;  // foreløpig kode
+    if(verdi == null) return -1;
+    
+    Node<T> p = hode; 
+    
+    for(int i = 0; i < antall; i++, p = p.neste)
+    {
+      if(p.verdi.equals(verdi))
+      {
+        return i;
+      }
+    }
+    return -1;
   }
   
   public T oppdater(int indeks, T nyverdi)
   {
-    return null;  // foreløpig kode 
+    indeksKontroll(indeks);
+    nullSjekk(nyverdi);
+    
+    Node<T> p = finnNode(indeks);
+    
+    T gammel = p.verdi;
+    p.verdi = nyverdi;
+    antallEndringer++;
+    return gammel;
   }
   
   public T fjern(int indeks)
@@ -160,12 +198,37 @@ public class DobbeltLenketListe<T> implements Liste<T>
   
   public String toString()
   {
-    return null;
+    if(antall == 0) return "[]";
+    
+    StringBuilder s = new StringBuilder();
+    s.append("[");
+    Node<T> p = hode;
+    s.append(p.verdi);
+    for(int i = 0; i < antall-1; i++)
+    {
+      s.append(", ").append(p.neste.verdi);
+      p = p.neste;
+    }
+    s.append("]");
+    return s.toString();
   }
-  
+
   public String omvendtString()
   {
-    return null;  // foreløpig kode
+    if(antall == 0) return "[]";
+    
+    StringBuilder s = new StringBuilder();
+    s.append("[");
+    Node<T> h = hode;
+    s.append(h.verdi);
+    
+    for(int i = antall -1; i > 0; i--)
+    {
+      s.append(", ").append(h.forrige.verdi);
+      h = h.forrige;
+    }
+    s.append("]");
+    return s.toString();
   }
 
 } // class DobbeltLenketListe
